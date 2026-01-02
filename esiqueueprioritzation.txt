@@ -1,0 +1,210 @@
+Implementing Eye-ESI Priority in Queue Management
+1. Core Principle (Must Understand)
+
+Eye-ESI does NOT mean “first come, first serve.”
+It means “sickest (vision-threatened) first, safely.”
+
+So the queue must be priority-based, not time-based.
+
+2. Queue Structure (Best Practice)
+
+Instead of one long queue, use multiple priority queues.
+
+Queue Buckets
+Queue	ESI Level	Color	Meaning
+Q1	ESI-1	🔴 Red	Immediate
+Q2	ESI-2	🟠 Orange	Urgent
+Q3	ESI-3	🟡 Yellow	Standard
+Q4	ESI-4	🟢 Green	Fast-track
+Q5	ESI-5	🔵 Blue	Administrative
+
+Each station (Vision test, IOP, Doctor) reads from these queues in order.
+
+3. Priority Rules (Exact Logic)
+Global Rule (Golden Rule)
+ESI-1 > ESI-2 > ESI-3 > ESI-4 > ESI-5
+
+
+But with controlled fairness (explained below).
+
+Station Selection Algorithm (Simple & Safe)
+IF ESI-1 patient exists
+    serve immediately
+ELSE IF ESI-2 patient exists
+    serve next
+ELSE IF ESI-3 patient exists
+    serve next
+ELSE IF ESI-4 patient exists
+    serve next
+ELSE
+    serve ESI-5
+
+
+This runs every time a station becomes free.
+
+4. What Happens at Each ESI Level
+🔴 ESI-1 (Emergency)
+
+Queue behavior
+
+BYPASS all queues
+
+No waiting
+
+Direct to emergency doctor
+
+Implementation
+
+No token waiting number
+
+Token says: “GO IMMEDIATELY – EMERGENCY”
+
+{
+  "esi": 1,
+  "queue_action": "bypass",
+  "priority": 100
+}
+
+🟠 ESI-2 (Urgent)
+
+Queue behavior
+
+Always next after ESI-1
+
+Can pre-empt ESI-3/4 patients
+
+Example
+
+If doctor is seeing ESI-4 → finish current patient
+
+Next patient → ESI-2
+
+{
+  "esi": 2,
+  "priority": 80,
+  "max_wait_minutes": 15
+}
+
+🟡 ESI-3 (Standard OPD)
+
+Queue behavior
+
+Normal queue
+
+Can be delayed by ESI-1 or ESI-2
+
+{
+  "esi": 3,
+  "priority": 50
+}
+
+🟢 ESI-4 (Fast-Track)
+
+Queue behavior
+
+Separate fast-track line
+
+Seen quickly when no emergencies
+
+Important
+
+ESI-4 ≠ lowest priority
+
+They are fast because they are simple
+
+{
+  "esi": 4,
+  "priority": 30,
+  "route": "fast_track"
+}
+
+🔵 ESI-5 (Administrative)
+
+Queue behavior
+
+Served only when others are clear
+
+Can be handled by non-doctor staff
+
+{
+  "esi": 5,
+  "priority": 10
+}
+
+5. Preventing Queue Abuse (VERY IMPORTANT)
+
+Hospitals must avoid two problems:
+
+ESI-3 patients waiting forever
+
+Doctors overloaded with emergencies
+
+✅ Solution: Aging + Fairness Rule
+Aging Rule
+
+If a patient waits too long, priority increases.
+
+effective_priority = base_priority + (waiting_time × aging_factor)
+
+
+Example:
+
+ESI-3 waiting 60 minutes → temporarily boosted
+
+Max-Wait Safety Limits
+ESI	Max Safe Wait
+ESI-1	0 min
+ESI-2	15 min
+ESI-3	60 min
+ESI-4	30 min
+ESI-5	Flexible
+
+If exceeded → alert staff
+
+6. Token Design (Very Important for Patient Trust)
+
+Each token shows:
+
+Color (ESI level)
+
+Current queue position
+
+Estimated wait time
+
+Next station
+
+Example Token
+TOKEN: A-204
+PRIORITY: 🟠 URGENT
+ESI LEVEL: 2
+NEXT: DOCTOR ROOM 3
+EST. WAIT: 10 MIN
+
+
+Patients do not need name call-outs.
+
+7. Queue Display System (Visual)
+Screen shows:
+
+Token number
+
+Color (priority)
+
+Station name
+
+“Now Serving”
+
+This reduces anxiety and crowding.
+
+8. Doctor / Station Workflow
+When a doctor finishes a patient:
+
+System checks Q1 → Q5
+
+Picks highest-priority token
+
+Displays token number
+
+Logs service time
+
+No manual decision needed → removes bias.

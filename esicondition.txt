@@ -1,0 +1,191 @@
+Emergency Severity Index (ESI) for Eye Hospital
+Exact Conditions for Each Level
+🔴 ESI-1 — IMMEDIATE (Vision- or Life-Threatening)
+Definition
+
+Patient has an immediate threat to vision or life and cannot wait.
+
+Exact Conditions (ANY ONE = ESI-1)
+Vision Threat
+
+Sudden vision loss (minutes to hours)
+
+No perception of light (NPL) newly developed
+
+Rapidly worsening vision with pain
+
+Chemical / Physical Injury
+
+Chemical injury (acid or alkali exposure)
+
+Penetrating eye injury
+
+Open globe injury
+
+Severe blunt trauma with vision loss
+
+Acute High-Risk Eye Conditions
+
+Severe eye pain + nausea/vomiting → suspected acute angle-closure glaucoma
+
+Fixed, dilated pupil after trauma
+
+Severe corneal opacity after injury
+
+Systemic / Neurological
+
+Eye injury with altered consciousness
+
+Eye trauma with uncontrolled bleeding
+
+Action
+
+🚨 Immediate ophthalmologist
+
+🚨 Skip all triage queues
+
+🚨 Emergency room / procedure room
+
+🟠 ESI-2 — URGENT (High Risk of Vision Loss)
+Definition
+
+Patient is stable, but delay can cause permanent vision damage.
+
+Exact Conditions (ANY ONE = ESI-2)
+Pain + Inflammation
+
+Red eye with pain and reduced vision
+
+Severe eye pain not relieved by blinking
+
+Photophobia with redness
+
+Infections
+
+Suspected corneal ulcer
+
+Severe conjunctivitis with vision disturbance
+
+Post-operative infection signs
+
+Retinal / Neuro Symptoms
+
+Sudden flashes and floaters
+
+Curtain-like shadow in vision (suspected retinal detachment)
+
+Double vision (new onset)
+
+Foreign Body
+
+Foreign body with pain
+
+Rust ring / embedded foreign body
+
+Pediatric / High-Risk
+
+Painful red eye in child
+
+Eye symptoms in diabetic / immunocompromised patient
+
+Action
+
+⚠️ Doctor within 10–15 minutes
+
+⚠️ Priority OPD / emergency lane
+
+🟡 ESI-3 — SEMI-URGENT (Stable, Multiple Resources Needed)
+Definition
+
+Patient is stable, but needs multiple diagnostic steps.
+
+Exact Conditions
+Vision Problems
+
+Gradual vision loss
+
+Blurred vision without pain
+
+Suspected glaucoma follow-up
+
+Eye Discomfort
+
+Persistent irritation
+
+Watering with discomfort
+
+Mild pain
+
+Chronic / Subacute
+
+Red eye without vision loss
+
+Dry eye symptoms
+
+Headache with eye strain
+
+Resources Needed
+
+Vision test
+
+IOP
+
+Slit-lamp exam
+
+Doctor consultation
+
+Action
+
+Normal OPD flow
+
+🟢 ESI-4 — NON-URGENT (Single Resource)
+Definition
+
+Patient is stable and needs only one simple resource.
+
+Exact Conditions
+
+Routine eye check-up
+
+Spectacle power check
+
+Mild itching or irritation
+
+Stable post-op follow-up
+
+No pain, no redness, no vision loss
+
+Resources
+
+Vision test OR doctor only
+
+Action
+
+Fast-track OPD
+
+🔵 ESI-5 — MINIMAL / ADMINISTRATIVE
+Definition
+
+No medical urgency; administrative or reassurance only.
+
+Exact Conditions
+
+Prescription refill
+
+Medical certificate
+
+Report review
+
+Asymptomatic follow-up
+
+Counseling only
+
+Resources
+
+No diagnostic tests
+
+Possibly no doctor
+
+Action
+
+Lowest priority

@@ -1,0 +1,231 @@
+Intelligent Triage Using Existing Patient Data + Real-Time Complaint
+(Eye Hospital Use Case)
+1. What “Existing Patient Data” Means in an Eye Hospital
+
+If a patient already exists (MRN / Hospital ID), the database usually contains:
+
+A. Demographic & Risk Data
+
+Age
+
+Gender
+
+Diabetes / Hypertension status
+
+Previous eye surgeries
+
+Systemic diseases
+
+B. Eye History
+
+Previous diagnoses (glaucoma, cataract, DR, etc.)
+
+Last recorded visual acuity
+
+Last recorded IOP
+
+Operated eye details
+
+One-eyed patient flag
+
+C. Visit History
+
+Last visit date
+
+Frequency of visits
+
+Missed follow-ups
+
+Previous ESI / urgency tags
+
+📌 This data is GOLD for triage.
+
+2. Why Combining Old + New Data Is Critical
+❌ Problem with only real-time complaint
+
+“Mild pain” may look low priority
+
+But patient may have:
+
+advanced glaucoma
+
+only one functional eye
+
+recent surgery
+
+✅ Benefit of combining
+
+The same complaint can mean very different urgency for different patients.
+
+Triage is contextual, not absolute.
+
+3. High-Level Logic (Very Important)
+
+Final Triage Priority = Real-Time Severity × Patient Risk Context
+
+4. Step-by-Step Triage Flow (Existing Patient)
+STEP 1: Patient Identification
+
+Patient enters ID / scans QR / fingerprint
+
+System fetches:
+
+full eye history
+
+risk flags
+
+{
+  "patient_id": "AEH10234",
+  "age": 62,
+  "diabetic": true,
+  "diagnosis": ["glaucoma"],
+  "one_eyed": true,
+  "last_iop": 28,
+  "last_visit": "2025-12-01"
+}
+
+STEP 2: Real-Time Complaint Capture
+
+Voice / text input:
+
+“I have eye pain since morning”
+
+Structured questions:
+
+Sudden vision loss? (Yes/No)
+
+Pain score (0–10)
+
+Trauma? Chemical exposure?
+
+STEP 3: Real-Time Screening (Optional AI)
+
+Eye redness
+
+Pupil size
+
+Blink rate
+
+Eye alignment
+
+{
+  "eye_redness": "Moderate",
+  "pupil_size": "Dilated"
+}
+
+5. Risk Context Scoring (THIS IS THE KEY)
+
+Each patient gets a Risk Context Score from historical data.
+
+Example Risk Factors & Weights
+Condition	Weight
+Age > 60	+1
+Diabetes	+2
+Glaucoma	+3
+One-eyed patient	+4
+Recent eye surgery (<30 days)	+4
+High IOP history	+3
+Missed follow-ups	+1
+Risk Score = 1 + 2 + 4 + 3 = 10 (HIGH RISK)
+
+6. Dynamic ESI Adjustment Logic
+Base ESI (from complaint only)
+
+Example:
+
+“Eye pain” → ESI-3
+
+Risk-Adjusted ESI
+IF Risk Score ≥ threshold
+    upgrade ESI by 1 level
+
+Example:
+
+Base ESI-3
+
+Risk score high
+➡ Final ESI-2
+
+📌 This is how intelligence is added without AI hallucination.
+
+7. Exact Rules for Priority Upgrade (Eye Hospital)
+Upgrade Conditions (ANY ONE):
+
+One-eyed patient + pain
+
+Glaucoma patient + headache / pain
+
+Diabetic + redness / vision change
+
+Post-operative eye + any symptom
+
+Elderly (>70) + vision complaint
+
+Rule Example:
+IF one_eyed = TRUE AND complaint != "routine"
+→ ESI = min(ESI - 1, ESI-1)
+
+8. Example Real Scenarios (VERY IMPORTANT)
+Scenario 1: Same Complaint, Different Priority
+Patient	Complaint	History	Final ESI
+Young patient	Mild pain	No history	ESI-3
+Glaucoma patient	Mild pain	One-eyed	ESI-2
+Scenario 2: Follow-Up Patient with Red Flags
+
+Complaint: “Just irritation”
+
+History:
+
+Recent cataract surgery (10 days ago)
+➡ ESI-2 (post-op risk)
+
+Scenario 3: Diabetic Retinopathy Patient
+
+Complaint: “Blurred vision”
+
+History:
+
+Diabetic
+
+Missed last follow-up
+➡ ESI-2 (retinal risk)
+
+9. Final Queue Priority Calculation
+Final Priority =
+    Base ESI Priority
+  + Risk Context Boost
+  + Waiting Time Aging
+
+
+This feeds directly into the priority queue system you designed earlier.
+
+10. What the Token Should Show (Trust Factor)
+TOKEN: B-145
+PRIORITY: 🟠 HIGH
+REASON:
+• Known glaucoma patient
+• Eye pain reported
+NEXT: Doctor – Priority Lane
+
+
+📌 Doctors LOVE seeing the “WHY”.
+
+11. Safety Layer (MANDATORY)
+
+Nurse / MLOP sees:
+
+Old data
+
+New complaint
+
+System suggestion
+
+Can:
+
+Confirm
+
+Override
+
+Add notes
+
+All overrides logged.

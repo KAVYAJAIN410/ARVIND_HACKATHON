@@ -1,0 +1,52 @@
+AI Voice-to-Token Triage System for Aravind Thanjavur
+
+Aravind Eye Care handles extremely high patient volumes with an “assembly-line” efficiency model. It performs over 720,000 surgeries per year and has managed 90+ million outpatient visits since its founding
+aravind.org
+. At the Thanjavur hospital, incoming patients currently pass through multiple manual steps: registration desks, form filling and screening areas, and finally specialist consultation. Mid-Level Ophthalmic Personnel (MLOPs) guide patients through initial checks (e.g. hand-washing, thermal screening) and enter data into consent forms
+aravind.org
+, after which doctors conduct vision testing and triage any urgent cases
+aravind.org
+. These manual processes – often repeated in Tamil or English – can create bottlenecks and long waits. An AI-based voice triage aims to streamline this: patients speak their eye complaint into a kiosk or app, and the system automates recording and routing.
+
+The core system would use speech recognition and NLP to capture and classify the patient’s complaint. Upon arrival, a patient is greeted by a voice agent (in Tamil or English) prompting “How can we help you today?” The patient’s spoken response is transcribed by an ASR engine and then analyzed. Critically, these voice agents can integrate with hospital systems: for example, studies note that modern AI voice assistants “understand and process patient speech” and “access and update patient data via integration with EHRs”, enabling tasks like symptom triage or scheduling
+starkdigital.net
+. After transcription, a natural-language classifier identifies the complaint type (e.g. blurred vision, eye pain, follow-up exam) and urgency. Research shows NLP models can categorize patient complaints with high accuracy – one study classified free-text hospital complaints into four categories with about 91% accuracy
+sciencedirect.com
+. We would train a similar model on ophthalmology-specific categories (pain/trauma, vision loss, routine check-up, etc.), using terminology from ophthalmic lexicons or SNOMED to improve precision. This automated classification replaces manual intake and helps determine next steps instantly.
+
+Once classified, the system issues a digital token linked to the patient’s record. Here we leverage Aravind’s eyeNotes EMR (by AuroiTech), which is explicitly designed for high-volume eyecare
+auroitech.org
+. eyeNotes already integrates front desk, lab, pharmacy, telehealth and other modules via APIs
+auroitech.org
+, so our system can call those APIs to register the complaint and update the chart. For example, the voice system could auto-create a new visit in eyeNotes with the patient’s ID and the transcribed chief complaint. In effect, the voice agent updates the electronic record in real time
+starkdigital.net
+. By feeding data into eyeNotes at check-in, subsequent clinicians see the complaint and patient data immediately, eliminating duplicate form-filling. The token number and queue assignment are then displayed to the patient on-screen or via SMS, giving clear visibility of their place in line. In summary, the AI agent handles all non-clinical intake and EMR entry, freeing MLOPs and front‐desk staff for more valuable duties.
+
+After registration, the system dynamically routes the patient to the right service point. For example, a complaint of “red, painful eye” would flag high urgency and route to the acute-care window, whereas a routine “I need a new glasses prescription” would send the patient to refraction. This routing can use simple rules (priority for keywords like “pain” or “trauma”) and real-time queue data. More advanced logic might employ algorithms: one study using a priority-queue algorithm combined with reinforcement learning found that intelligent routing “significantly reduces waiting times” and boosts efficiency
+researchgate.net
+. In practice, our system could initially use fixed priorities (emergent vs. routine) and the current queue lengths to assign patients to the fastest open queue. Over time, data on service times per station could feed into a predictive model (e.g. shortest-expected-wait logic). Key is that the patient, once tokenized, is given clear instructions (e.g. “please proceed to Counter 3 – Refraction”) and can see live updates (digital signage or mobile alerts) of their progress. This level of transparency and adaptability is known to improve patient satisfaction: RL-optimized queue models in hospitals have shown not only lower waits but also higher patient satisfaction
+researchgate.net
+ compared to static systems.
+
+The system must be fully multilingual and accessible. Tamil is the predominant local language, so both prompts and processing must support Tamil (as well as English). Speech recognition for Tamil is challenging but improving: Tamil has many dialects (Chennai, Kovai, rural variants) and a diglossic nature
+link.springer.com
+, which raises error rates in ASR. Nevertheless, recent AI models are promising – for instance, an advanced Wav2Vec2.0 model trained on Tamil achieved an extremely low word-error-rate (~0.6%) on benchmark data
+link.springer.com
+. In real deployment, we should fine-tune or adapt ASR models with local speech samples (possibly including Aravind patient recordings) and include medical vocabulary to boost accuracy. Prior work notes that dialectal/rural speech can increase ASR word-error rates by up to ~15%
+ijrsml.org
+, so fallback confirmations (“I heard you say ‘red eye pain,’ is that correct?”) can catch misrecognitions. The user interface should also allow selecting language or confirming choices. Notably, commercial systems like the ArogyaSaathi AI voice assistant already support Tamil and English for symptom triage: it explicitly “supports multiple Indian languages including Tamil… and English”
+marketplace.microsoft.com
+ and conducts multi-turn symptom interviews to guide the user
+marketplace.microsoft.com
+. We would emulate this model – using simple follow-up questions in Tamil/English and text/voice output – to make the tool usable even by patients with limited literacy.
+
+Crucially, the AI triage must integrate into clinical workflow. All transcribed complaints and decisions feed into the patient’s electronic chart (via eyeNotes) and the hospital’s scheduling system. This ensures continuity: a doctor seeing the patient will find the voice-collected history in the chart and the token in the queue log. Moreover, by building on existing infrastructure (eyeNotes APIs, hospital Wi-Fi, digital displays), implementation complexity is reduced. In line with AI-driven healthcare trends, we treat the voice agent as an “always-on” virtual assistant – it can even handle off-hours calls if expanded. The Aravind team should plan a pilot study at Thanjavur: comparing pre- and post-implementation metrics (average registration time, waiting time, patient satisfaction scores). This aligns with Aravind’s history of using Plan-Do-Study-Act cycles for improvement. Iterative testing (with real patients) will refine the voice prompts, classification accuracy, and queue logic.
+
+Expected outcomes include faster registration, shorter queues, and better patient empowerment. By automating the initial complaint intake, the system directly reduces administrative load on staff
+starkdigital.net
+ and minimizes repetitive questions. Patients benefit from immediate understanding of their next steps and wait estimates. The intelligent routing adapts to real-time conditions, so no single counter becomes a bottleneck. In essence, this technology extends Aravind’s proven high-throughput model
+aravind.org
+ with modern AI. As one commentary notes, AI voice agents in healthcare “bridge the gap between patients and providers”, handling tasks like triage and scheduling and ensuring “patients get timely, accurate responses”
+starkdigital.net
+starkdigital.net
+. If successful, the Thanjavur voice-to-token triage could serve as a model for other Aravind centers, embodying the system’s mission of efficient, patient-centric care while keeping staff focused on medical tasks.
