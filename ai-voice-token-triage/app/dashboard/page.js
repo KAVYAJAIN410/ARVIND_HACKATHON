@@ -53,6 +53,26 @@ export default function DoctorDashboard() {
                         <div className="font-bold text-slate-700">Vision Station</div>
                         <div className="text-xs text-slate-400">View Queue</div>
                     </a>
+                    <a href="/station-display/refraction" target="_blank" className="p-4 bg-white border border-slate-200 rounded-xl hover:shadow-md transition-all text-center group">
+                        <div className="text-2xl mb-1 group-hover:scale-110 transition-transform">👓</div>
+                        <div className="font-bold text-slate-700">Refraction</div>
+                        <div className="text-xs text-slate-400">View Queue</div>
+                    </a>
+                    <a href="/station-display/dilation" target="_blank" className="p-4 bg-white border border-slate-200 rounded-xl hover:shadow-md transition-all text-center group">
+                        <div className="text-2xl mb-1 group-hover:scale-110 transition-transform">💧</div>
+                        <div className="font-bold text-slate-700">Dilation</div>
+                        <div className="text-xs text-slate-400">View Queue</div>
+                    </a>
+                    <a href="/station-display/fundus_photo" target="_blank" className="p-4 bg-white border border-slate-200 rounded-xl hover:shadow-md transition-all text-center group">
+                        <div className="text-2xl mb-1 group-hover:scale-110 transition-transform">📸</div>
+                        <div className="font-bold text-slate-700">Fundus Photo</div>
+                        <div className="text-xs text-slate-400">View Queue</div>
+                    </a>
+                    <a href="/station-display/investigation" target="_blank" className="p-4 bg-white border border-slate-200 rounded-xl hover:shadow-md transition-all text-center group">
+                        <div className="text-2xl mb-1 group-hover:scale-110 transition-transform">🔬</div>
+                        <div className="font-bold text-slate-700">Investigation</div>
+                        <div className="text-xs text-slate-400">View Queue</div>
+                    </a>
                     <a href="/station-display/iop_check" target="_blank" className="p-4 bg-white border border-slate-200 rounded-xl hover:shadow-md transition-all text-center group">
                         <div className="text-2xl mb-1 group-hover:scale-110 transition-transform">💨</div>
                         <div className="font-bold text-slate-700">IOP / Glaucoma</div>
@@ -68,9 +88,9 @@ export default function DoctorDashboard() {
                         <div className="font-bold text-slate-700">Pharmacy</div>
                         <div className="text-xs text-slate-400">View Queue</div>
                     </a>
-                    <a href="/station-display/emergency_room" target="_blank" className="p-4 bg-white border border-slate-200 rounded-xl hover:shadow-md transition-all text-center group">
+                    <a href="/station-display/trauma_center" target="_blank" className="p-4 bg-white border border-slate-200 rounded-xl hover:shadow-md transition-all text-center group">
                         <div className="text-2xl mb-1 group-hover:scale-110 transition-transform">🚨</div>
-                        <div className="font-bold text-slate-700">Emergency</div>
+                        <div className="font-bold text-slate-700">Trauma</div>
                         <div className="text-xs text-slate-400">View Queue</div>
                     </a>
                 </div>

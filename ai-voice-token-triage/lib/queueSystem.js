@@ -17,24 +17,38 @@ const ESI_WEIGHTS = {
 
 const AGING_FACTOR = 2; // +2 points per minute of waiting
 
+// Helper function to determine pathway based on ESI and Category
+// Placeholder implementation, assuming category might override or refine ESI-based pathways
+const getPathwayForESI = (esiLevel, category) => {
+    // For now, just use ESI level as before.
+    // Future: Add logic here to use 'category' to select a specific pathway
+    // e.g., if category is 'pediatric', use PATHWAYS.PEDIATRIC[esiLevel]
+    return PATHWAYS[esiLevel] || PATHWAYS[3];
+};
+
 export const QueueSystem = {
     /**
      * Initialize a patient into the queue system
      */
-    startJourney: (tokenId, esiLevel) => {
+    startJourney: (tokenId, esiLevel, category) => {
         const visit = db.getVisit(tokenId);
         if (!visit) return;
 
-        const pathway = PATHWAYS[esiLevel] || PATHWAYS[3];
-        const firstStation = pathway[0]; // Usually Registration
+        // Get Pathway based on Category (Priority) or ESI
+        const pathway = getPathwayForESI(esiLevel, category);
 
-        // Update Visit with Flow Data
+        // Save the chosen pathway to the visit record
         visit.pathway = pathway;
-        visit.currentStation = firstStation;
+        visit.currentStation = pathway[0];
         visit.stationStatus = 'waiting';
-        visit.entryTime = Date.now();
+        visit.category = category; // Persist category
+        visit.entryTime = Date.now(); // Keep entryTime here
 
-        // Add to Queue
+        const firstStation = pathway[0];
+        console.log(`[QueueSystem] Starting Journey for ${tokenId}`);
+        console.log(`[QueueSystem] Category: ${category}, ESI: ${esiLevel}`);
+        console.log(`[QueueSystem] Pathway:`, pathway);
+
         QueueSystem.addToStation(firstStation, visit);
     },
 
@@ -114,5 +128,38 @@ export const QueueSystem = {
         }
 
         return { next: nextStation };
+    },
+
+    getPatientStatus: (tokenId) => {
+        const visit = db.getVisit(tokenId);
+        if (!visit) return null;
+
+        const station = visit.currentStation;
+        let position = 0;
+        let estimatedWait = 0;
+
+        // Find position in the specific station queue
+        const queue = db.getQueue(station) || [];
+        // Note: The queue in DB is not strictly sorted by score until 'getStationQueue' is called.
+        // But 'db.addToQueue' appends.
+        // For accurate position, we should simulate the sort.
+        const sortedQueue = [...queue].sort((a, b) => b.totalScore - a.totalScore); // Descending score
+
+        const index = sortedQueue.findIndex(p => p.tokenId === tokenId);
+        if (index !== -1) {
+            position = index + 1; // 1-based
+            estimatedWait = position * 5; // Rough estimate: 5 mins per patient
+        }
+
+        return {
+            tokenId,
+            name: visit.name || "Guest",
+            currentStation: station,
+            pathway: visit.pathway,
+            queuePosition: position,
+            estimatedWait,
+            esiLevel: visit.esiLevel,
+            status: visit.stationStatus // 'waiting', 'serving', 'completed'
+        };
     }
 };

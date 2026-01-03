@@ -6,9 +6,13 @@
 export const STATIONS = {
     REGISTRATION: 'registration',
     VISION: 'vision_test',
+    REFRACTION: 'refraction', // New
+    DILATION: 'dilation',     // New
+    FUNDUS: 'fundus_photo',   // New
+    INVESTIGATION: 'investigation', // New
     IOP: 'iop_check',
     DOCTOR: 'doctor_consult',
-    EMERGENCY: 'emergency_room',
+    EMERGENCY: 'trauma_center', // Renamed from emergency_room
     PHARMACY: 'pharmacy',
     DISCHARGE: 'discharge'
 };
@@ -21,28 +25,33 @@ export const PATHWAYS = {
         STATIONS.DISCHARGE
     ],
 
-    // 🟠 ESI-2: Urgent
-    // Fast track to Doctor, skip routine checks if possible
+    // 🟠 ESI-2: Urgent (e.g., Sudden Pain/Loss)
+    // Vision -> Doctor (Fast Track) -> Investigation (if needed)
     2: [
-        STATIONS.VISION, // Quick check
+        STATIONS.VISION,
         STATIONS.DOCTOR,
+        STATIONS.INVESTIGATION,
         STATIONS.PHARMACY,
         STATIONS.DISCHARGE
     ],
 
     // 🟡 ESI-3: Standard Care (Full Workup)
-    // The "Assembly Line" flow
+    // Vision -> Refraction -> Dilation -> Doctor
     3: [
         STATIONS.VISION,
+        STATIONS.REFRACTION,
+        STATIONS.IOP,
+        STATIONS.DILATION,
         STATIONS.DOCTOR,
         STATIONS.PHARMACY,
         STATIONS.DISCHARGE
     ],
 
     // 🟢 ESI-4: Refraction / Simple
-    // Often handled by Optom, Doctor optional
+    // Vision -> Refraction -> Pharmacy (Optom driven)
     4: [
         STATIONS.VISION,
+        STATIONS.REFRACTION,
         STATIONS.PHARMACY,
         STATIONS.DISCHARGE
     ],
@@ -54,6 +63,58 @@ export const PATHWAYS = {
     ]
 };
 
-export function getPathwayForESI(esiLevel) {
-    return PATHWAYS[esiLevel] || PATHWAYS[3]; // Default to Standard if unknown
+// Specific Complaint-Based Pathways (User Defined)
+export const COMPLAINT_PATHWAYS = {
+    // 1. Redness
+    'REDNESS': [
+        STATIONS.VISION,
+        STATIONS.DOCTOR,
+        STATIONS.PHARMACY // Added
+    ],
+    // 2. Blurred Vision (Simple)
+    'BLURRED_VISION': [
+        STATIONS.VISION,
+        STATIONS.DOCTOR,
+        STATIONS.PHARMACY
+    ],
+    // 3. Pain
+    'PAIN': [
+        STATIONS.VISION,
+        STATIONS.INVESTIGATION,
+        STATIONS.DOCTOR,
+        STATIONS.PHARMACY
+    ],
+    // 4. Detailed Blurred Vision / Refractive
+    'REFRACTIVE_ERROR': [
+        STATIONS.VISION,
+        STATIONS.REFRACTION,
+        STATIONS.INVESTIGATION,
+        STATIONS.DILATION,
+        STATIONS.DOCTOR,
+        STATIONS.PHARMACY
+    ],
+    // 5. Chemical / Trauma
+    'TRAUMA': [
+        STATIONS.EMERGENCY, // Trauma Center
+        STATIONS.VISION,
+        STATIONS.DOCTOR,
+        STATIONS.PHARMACY
+    ],
+    // 6. Routine Checkup
+    'ROUTINE': [
+        STATIONS.VISION,
+        STATIONS.REFRACTION,
+        STATIONS.FUNDUS, // Added
+        STATIONS.DOCTOR,
+        STATIONS.PHARMACY
+    ]
+};
+
+export function getPathwayForESI(esiLevel, category) {
+    // 1. Check for Specific Category Match First
+    if (category && COMPLAINT_PATHWAYS[category]) {
+        return COMPLAINT_PATHWAYS[category];
+    }
+    // 2. Fallback to ESI Level
+    return PATHWAYS[esiLevel] || PATHWAYS[3];
 }

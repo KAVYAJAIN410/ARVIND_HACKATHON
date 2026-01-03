@@ -17,13 +17,20 @@ export default function DigitalTicket({ tokenData }) {
         // Generate QR Data URL
         const generateQR = async () => {
             try {
-                const dataString = JSON.stringify({
-                    id: tokenData.tokenId,
-                    cat: tokenData.category,
-                    time: tokenData.timestamp
+                // Generate Full URL for Patient Companion App
+                // Using detected LAN IP to allow mobile scanning
+                const baseUrl = "http://10.196.237.96:3000";
+                const qrUrl = `${baseUrl}/patient/${tokenData.tokenId}`;
+
+                const qr = await QRCode.toDataURL(qrUrl, {
+                    width: 200,
+                    margin: 2,
+                    color: {
+                        dark: '#000000',
+                        light: '#ffffff'
+                    }
                 });
-                const url = await QRCode.toDataURL(dataString);
-                setQrSrc(url);
+                setQrSrc(qr);
             } catch (err) {
                 console.error(err);
             }
@@ -43,14 +50,14 @@ export default function DigitalTicket({ tokenData }) {
 
                 {/* ESI Stripe */}
                 <div className={`w-full h-1 mt-2 mb-1 rounded-full ${tokenData.category === 'EMERGENCY' ? 'bg-red-500' :
-                        tokenData.category === 'OPHTHALMOLOGY' ? 'bg-orange-500' :
-                            'bg-green-500'
+                    tokenData.category === 'OPHTHALMOLOGY' ? 'bg-orange-500' :
+                        'bg-green-500'
                     }`}></div>
 
                 <h1 className="text-3xl font-black text-slate-800 mt-2">TOKEN</h1>
                 <div className={`text-5xl font-black my-4 tracking-tighter ${tokenData.category === 'EMERGENCY' ? 'text-red-600' :
-                        tokenData.category === 'OPHTHALMOLOGY' ? 'text-orange-600' :
-                            'text-emerald-600'
+                    tokenData.category === 'OPHTHALMOLOGY' ? 'text-orange-600' :
+                        'text-emerald-600'
                     }`}>
                     {tokenData.tokenId}
                 </div>
