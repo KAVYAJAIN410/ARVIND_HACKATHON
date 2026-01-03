@@ -85,10 +85,10 @@ export const COMPLAINT_PATHWAYS = {
     ],
     // 5. Chemical / Trauma
     'TRAUMA': [
-        STATIONS.EMERGENCY, // Trauma Center
+      
         STATIONS.VISION,
         STATIONS.DOCTOR,
-        STATIONS.PHARMACY
+        
     ],
     // 6. Routine Checkup
     'ROUTINE': [
@@ -115,6 +115,9 @@ export function getPathwayForESI(esiLevel, category) {
     }
     else if(category=="Refraction / Vision Check"){
         cat="ROUTINE"
+    }
+    else if(category=="EMERGENCY"){
+        cat="TRAUMA"
     }
     if (cat && COMPLAINT_PATHWAYS[cat]) {
         return COMPLAINT_PATHWAYS[cat];

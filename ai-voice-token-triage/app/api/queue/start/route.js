@@ -5,7 +5,7 @@ import { db } from '../../../../lib/db';
 export async function POST(request) {
     try {
         const data = await request.json();
-        const { tokenId, esiLevel, patientId, category } = data;
+        const { tokenId, esiLevel, patientId, category,complaint } = data;
 
         // Ensure Visit exists in DB
         let visit = db.getVisit(tokenId);
@@ -20,7 +20,7 @@ export async function POST(request) {
         }
 
         // Start the Flow (Category takes precedence per new logic)
-        QueueSystem.startJourney(tokenId, esiLevel, category);
+        QueueSystem.startJourney(tokenId, esiLevel, complaint);
 
         return NextResponse.json({ success: true, message: "Patient entered into queue" });
     } catch (error) {

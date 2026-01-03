@@ -59,7 +59,7 @@ async function sendSMS() {
   const [error, setError] = useState(null);
   const [aiInsights, setAiInsights] = useState(null);
   const [isCorrecting, setIsCorrecting] = useState(false);
-
+  const [category,setCategory]=useState("unknown");
   // Digital Ticket State
   const [showTicket, setShowTicket] = useState(false);
   const [ticketData, setTicketData] = useState(null);
@@ -89,6 +89,7 @@ async function sendSMS() {
       // Simulate "Thinking" time for effect, though processing is fast
       setTimeout(() => {
         try {
+          setCategory(serverCategory);
           const category = serverCategory || "OPD_GENERAL";
           const waitTime = predictWaitTime(category);
           const insights = getProcessInsights();
@@ -165,7 +166,9 @@ async function sendSMS() {
         body: JSON.stringify({
           tokenId: newToken.tokenId,
           esiLevel: mappedComplaint.esiLevel || 3,
-          patientId: "Unknown" // Hook to Auth if available
+          patientId: "Unknown", // Hook to Auth if available
+          category:category,
+          complaint:complaint
         })
       }).catch(err => console.error("Queue Entry Failed", err));
 

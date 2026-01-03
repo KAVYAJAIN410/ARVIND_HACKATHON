@@ -63,20 +63,38 @@ export const QueueSystem = {
     /**
      * Get sorted list for a station (The Display Logic)
      */
-    getStationQueue: (station) => {
-        const queues = db.getQueues();
-        const rawList = queues[station] || [];
+getStationQueue: (station) => {
+    const queues = db.getQueues();
+    const rawList = queues[station] || [];
 
-        // Dynamic Sort
-        const now = Date.now();
-        return rawList.map(item => {
-            const waitMinutes = (now - item.entryTime) / 60000;
-            const agingScore = waitMinutes * AGING_FACTOR;
-            const totalScore = item.baseScore + agingScore;
+    if (rawList.length <= 1) return rawList;
 
-            return { ...item, waitMinutes: waitMinutes.toFixed(0), totalScore };
-        }).sort((a, b) => b.totalScore - a.totalScore); // High score first
-    },
+    const now = Date.now();
+
+    // Enrich with scores
+    const scoredList = rawList.map(item => {
+        const waitMinutes = (now - item.entryTime) / 60000;
+        const agingScore = waitMinutes * AGING_FACTOR;
+        const totalScore = item.baseScore + agingScore;
+
+        return {
+            ...item,
+            waitMinutes: Math.floor(waitMinutes),
+            totalScore
+        };
+    });
+
+    // 🟢 Keep first patient fixed
+    const firstPatient = scoredList[0];
+
+    // 🔄 Sort the rest
+    const restPatients = scoredList
+        .slice(1)
+        .sort((a, b) => b.totalScore - a.totalScore);
+
+    return [firstPatient, ...restPatients];
+},
+
 
     /**
      * Complete current station and move to next
