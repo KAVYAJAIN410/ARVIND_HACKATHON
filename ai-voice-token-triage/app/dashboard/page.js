@@ -73,11 +73,7 @@ export default function DoctorDashboard() {
                         <div className="font-bold text-slate-700">Investigation</div>
                         <div className="text-xs text-slate-400">View Queue</div>
                     </a>
-                    <a href="/station-display/iop_check" target="_blank" className="p-4 bg-white border border-slate-200 rounded-xl hover:shadow-md transition-all text-center group">
-                        <div className="text-2xl mb-1 group-hover:scale-110 transition-transform">💨</div>
-                        <div className="font-bold text-slate-700">IOP / Glaucoma</div>
-                        <div className="text-xs text-slate-400">View Queue</div>
-                    </a>
+
                     <a href="/station-display/doctor_consult" target="_blank" className="p-4 bg-white border border-slate-200 rounded-xl hover:shadow-md transition-all text-center group">
                         <div className="text-2xl mb-1 group-hover:scale-110 transition-transform">👨‍⚕️</div>
                         <div className="font-bold text-slate-700">Doctor Room</div>
