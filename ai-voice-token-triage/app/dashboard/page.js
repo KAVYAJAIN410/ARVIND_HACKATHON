@@ -46,6 +46,35 @@ export default function DoctorDashboard() {
                     </div>
                 </div>
 
+                {/* Station Selection Links */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                    <a href="/station-display/vision_test" target="_blank" className="p-4 bg-white border border-slate-200 rounded-xl hover:shadow-md transition-all text-center group">
+                        <div className="text-2xl mb-1 group-hover:scale-110 transition-transform">👁️</div>
+                        <div className="font-bold text-slate-700">Vision Station</div>
+                        <div className="text-xs text-slate-400">View Queue</div>
+                    </a>
+                    <a href="/station-display/iop_check" target="_blank" className="p-4 bg-white border border-slate-200 rounded-xl hover:shadow-md transition-all text-center group">
+                        <div className="text-2xl mb-1 group-hover:scale-110 transition-transform">💨</div>
+                        <div className="font-bold text-slate-700">IOP / Glaucoma</div>
+                        <div className="text-xs text-slate-400">View Queue</div>
+                    </a>
+                    <a href="/station-display/doctor_consult" target="_blank" className="p-4 bg-white border border-slate-200 rounded-xl hover:shadow-md transition-all text-center group">
+                        <div className="text-2xl mb-1 group-hover:scale-110 transition-transform">👨‍⚕️</div>
+                        <div className="font-bold text-slate-700">Doctor Room</div>
+                        <div className="text-xs text-slate-400">View Queue</div>
+                    </a>
+                    <a href="/station-display/pharmacy" target="_blank" className="p-4 bg-white border border-slate-200 rounded-xl hover:shadow-md transition-all text-center group">
+                        <div className="text-2xl mb-1 group-hover:scale-110 transition-transform">💊</div>
+                        <div className="font-bold text-slate-700">Pharmacy</div>
+                        <div className="text-xs text-slate-400">View Queue</div>
+                    </a>
+                    <a href="/station-display/emergency_room" target="_blank" className="p-4 bg-white border border-slate-200 rounded-xl hover:shadow-md transition-all text-center group">
+                        <div className="text-2xl mb-1 group-hover:scale-110 transition-transform">🚨</div>
+                        <div className="font-bold text-slate-700">Emergency</div>
+                        <div className="text-xs text-slate-400">View Queue</div>
+                    </a>
+                </div>
+
                 {/* Queue Table */}
                 <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
                     <table className="w-full text-left">
@@ -80,7 +109,7 @@ export default function DoctorDashboard() {
                                         </td>
                                         <td className="px-6 py-4">
                                             <span className={`inline-block w-2 h-2 rounded-full mr-2 ${p.severity === 'high' ? 'bg-red-500' :
-                                                    p.severity === 'medium' ? 'bg-amber-500' : 'bg-green-500'
+                                                p.severity === 'medium' ? 'bg-amber-500' : 'bg-green-500'
                                                 }`}></span>
                                             <span className="text-xs uppercase font-bold text-slate-500">{p.severity}</span>
                                         </td>

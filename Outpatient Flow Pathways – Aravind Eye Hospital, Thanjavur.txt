@@ -1,125 +1,0 @@
-Outpatient Flow Pathways – Aravind Eye Hospital, Thanjavur
-This document outlines customized outpatient flow pathways based on chief complaints, categorized under New, Review, and Emergency as per institutional triage at Aravind Eye Hospital, Thanjavur.
-New Cases
-Blurring of vision – New
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Refraction 4. Technician Evaluation 5. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Pain – New
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Refraction 4. Technician Evaluation 5. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Redness – New
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Refraction 4. Technician Evaluation 5. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Irritation – New
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Refraction 4. Technician Evaluation 5. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Burning sensation – New
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Refraction 4. Technician Evaluation 5. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Itching – New
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Refraction 4. Technician Evaluation 5. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Deviation of eye(s) – New
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Refraction 4. Technician Evaluation 5. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Watering and/discharge – New
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Refraction 4. Technician Evaluation 5. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Headache – New
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Refraction 4. Technician Evaluation 5. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-General check up – New
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Refraction (optional) 4. Technician Evaluation 5. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-LASIK – New
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Refraction (optional) 4. Technician Evaluation 5. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Double vision – New
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Refraction 4. Technician Evaluation 5. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Dry eyes – New
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Refraction (optional) 4. Technician Evaluation 5. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Twitching of eyelid – New
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Refraction 4. Technician Evaluation 5. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Drooping of eyelid – New
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Refraction 4. Technician Evaluation 5. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Inability to close eyelid completely – New
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Refraction 4. Technician Evaluation 5. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Bulging of eyelid – New
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Refraction 4. Technician Evaluation 5. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Floaters/black spots in front of eyes – New
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Refraction 4. Technician Evaluation 5. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Flashes of light – New
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Refraction 4. Technician Evaluation 5. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Foreign body sensation – New
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Refraction 4. Technician Evaluation 5. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Glare – New
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Refraction 4. Technician Evaluation 5. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Halos – New
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Refraction 4. Technician Evaluation 5. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Photophobia/light sensitivity – New
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Refraction 4. Technician Evaluation 5. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Night blindness – New
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Refraction 4. Technician Evaluation 5. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Review Cases
-Glaucoma – Review
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Review Station or Unit Desk 4. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Retina – Review
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Review Station or Unit Desk 4. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Cornea and Refractive surgery – Review
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Review Station or Unit Desk 4. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Paediatric ophthalmology and Squint – Review
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Review Station or Unit Desk 4. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Neurophthalmology – Review
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Review Station or Unit Desk 4. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Unit 1 – Review
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Review Station or Unit Desk 4. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Unit 2 – Review
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Review Station or Unit Desk 4. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Uvea – Review
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Review Station or Unit Desk 4. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-IOL – Review
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Review Station or Unit Desk 4. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Low vision clinic – Review
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Review Station or Unit Desk 4. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Orbit – Review
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Review Station or Unit Desk 4. Doctor Examination 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Emergency Cases
-Injury – Emergency
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Direct to Doctor (bypass refraction if critical) 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Foreign body – Emergency
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Direct to Doctor (bypass refraction if critical) 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Chemical injury – Emergency
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Direct to Doctor (bypass refraction if critical) 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Sudden severe pain – Emergency
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Direct to Doctor (bypass refraction if critical) 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 
-Sudden blurring/loss of vision – Emergency
-Proposed Patient Flow:
-1. Registration 2. Escort + Vision Testing 3. Direct to Doctor (bypass refraction if critical) 6. Investigations / Dilation (if advised) 7. Counseling / Pharmacy / Follow-up 

@@ -23,6 +23,8 @@ export default function ComplaintMappingPage() {
   const pain = searchParams.get('pain');
   const risksParam = searchParams.get('risks');
   const mlScore = searchParams.get('ml');
+  const esiLevelParam = searchParams.get('esi_level');
+  const esiActionParam = searchParams.get('esi_action');
 
   const [mappedComplaint, setMappedComplaint] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -70,7 +72,9 @@ export default function ComplaintMappingPage() {
             reasoning: serverReasoning || "Standard Triage",
             stress: stressLevel || "normal",
             painDetected: pain === 'true',
-            riskFactors: risksParam ? JSON.parse(risksParam) : []
+            riskFactors: risksParam ? JSON.parse(risksParam) : [],
+            esiLevel: esiLevelParam ? parseInt(esiLevelParam) : 3,
+            esiAction: esiActionParam || "General Assessment"
           });
 
           setAiInsights(insights);
@@ -114,7 +118,18 @@ export default function ComplaintMappingPage() {
       setShowTicket(true);
       playSuccessTone();
 
-      // Send to EMR (Simulated Integration)
+      // 1. Enter Patient into Intelligent Queue System
+      fetch('/api/queue/start', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tokenId: newToken.tokenId,
+          esiLevel: mappedComplaint.esiLevel || 3,
+          patientId: "Unknown" // Hook to Auth if available
+        })
+      }).catch(err => console.error("Queue Entry Failed", err));
+
+      // 2. Sync to EMR
       fetch('/api/emr', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -353,14 +368,20 @@ export default function ComplaintMappingPage() {
                 </div>
               </div>
               <div className="text-right border-l pl-4 border-slate-200">
-                <div className="text-xs text-slate-400 mb-1">Severity</div>
-                <span className={`
-                      px-2 py-1 rounded text-xs font-bold uppercase
-                      ${mappedComplaint.severity === 'high' ? 'bg-red-100 text-red-600' :
-                    mappedComplaint.severity === 'medium' ? 'bg-amber-100 text-amber-600' : 'bg-green-100 text-green-600'}
-                   `}>
-                  {mappedComplaint.severity}
-                </span>
+                <div className="text-xs text-slate-400 mb-1">Triage Priority</div>
+                <div className="flex flex-col items-end gap-1">
+                  <span className={`
+                        px-3 py-1.5 rounded text-sm font-bold shadow-sm
+                        ${mappedComplaint.esiLevel === 1 ? 'bg-red-600 text-white animate-pulse' :
+                      mappedComplaint.esiLevel === 2 ? 'bg-orange-500 text-white' :
+                        mappedComplaint.esiLevel === 3 ? 'bg-yellow-400 text-black' :
+                          mappedComplaint.esiLevel === 4 ? 'bg-green-500 text-white' :
+                            'bg-blue-500 text-white'}
+                      `}>
+                    ESI LEVEL {mappedComplaint.esiLevel}
+                  </span>
+                  <span className="text-[10px] font-medium text-slate-500">{mappedComplaint.esiAction}</span>
+                </div>
               </div>
             </div>
 

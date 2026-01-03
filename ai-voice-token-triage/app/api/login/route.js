@@ -4,7 +4,7 @@ import { db } from '../../../lib/db';
 export async function POST(request) {
     try {
         const { phone } = await request.json();
-        const patient = db.getPatientByPhone(phone);
+        const patient = db.getPatient(phone);
 
         if (patient) {
             return NextResponse.json({ success: true, patient });

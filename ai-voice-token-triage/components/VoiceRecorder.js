@@ -240,7 +240,9 @@ const VoiceRecorder = ({ language, patientHistory }) => {
             stress: data.audio_analysis?.stress_level || "normal",
             pain: data.audio_analysis?.pain_detected || "false",
             risks: JSON.stringify(data.risk_factors || []),
-            ml: data.ml_score || "0"
+            ml: data.ml_score || "0",
+            esi_level: data.category_prediction?.esi_level || "3",
+            esi_action: data.category_prediction?.esi_action || "Standard Triage"
           }).toString();
 
           router.push(`/complaint-mapping?${queryParams}`);

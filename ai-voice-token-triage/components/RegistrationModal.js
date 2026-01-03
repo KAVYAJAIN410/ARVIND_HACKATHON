@@ -113,17 +113,33 @@ export default function RegistrationModal({ onComplete }) {
         alert(`OCR Result:\nName: ${newDetails.name || "Unknown"}\nAge: ${newDetails.age || "Unknown"}\nGender: ${newDetails.gender}\n\n(Edit manually if incorrect)`);
     };
 
-    const handleSubmitNew = (e) => {
+    const handleSubmitNew = async (e) => {
         e.preventDefault();
         if (!formData.name) return alert("Please enter name");
         if (!formData.age) return alert("Please enter age");
 
-        // Pass data back
-        onComplete({
-            type: 'new',
-            ...formData,
-            isGuest: false
-        });
+        try {
+            const response = await fetch('/api/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+            const data = await response.json();
+
+            if (data.success) {
+                // Pass backend data back (includes Generated ID)
+                onComplete({
+                    type: 'new',
+                    ...data.patient,
+                    isGuest: false
+                });
+            } else {
+                alert("Registration Failed: " + data.message);
+            }
+        } catch (err) {
+            console.error(err);
+            alert("System Error during Registration");
+        }
     };
 
     const handleSubmitExisting = async (e) => {

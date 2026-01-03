@@ -3,6 +3,7 @@ import Fuse from 'fuse.js';
 import { analyzeMedicalContext } from '../../../lib/genAiTriage';
 import { normalizeTanglish } from '../../../lib/tanglishMap';
 import { calculateRiskScore, adjustEsiLevel } from '../../../lib/riskEngine';
+import { determineESILevel } from '../../../lib/esiRules';
 import { predictRiskProbability } from '../../../lib/mlRiskModel'; // Machine Learning
 
 // Enhanced Medical Ontology with Symptoms and Categories
@@ -109,84 +110,56 @@ export async function POST(request) {
     // 2. GenAI Context Analysis
     const genAiResult = analyzeMedicalContext(textToAnalyze);
 
-    let finalCategory = "OPD_GENERAL";
     let finalSymptom = textToAnalyze;
     let finalSeverity = "low";
     let finalConfidence = 0.5;
     let aiReasoning = "Standard pattern matching";
 
-    if (genAiResult.category) {
-      finalCategory = genAiResult.category;
-      finalSymptom = textToAnalyze;
-      finalSeverity = genAiResult.severity; // 'low', 'medium', 'high'
-      finalConfidence = genAiResult.confidence;
-      aiReasoning = genAiResult.reasoning;
-    } else {
-      // Fallback Logic (omitted for brevity, assume similar to original)
-      const searchResults = fuse.search(textToAnalyze);
-      if (searchResults.length > 0) {
-        const bestMatch = searchResults[0].item;
-        finalCategory = bestMatch.category;
-        finalSymptom = bestMatch.symptom;
-        finalSeverity = bestMatch.severity;
-        finalConfidence = (1 - searchResults[0].score).toFixed(2);
-        aiReasoning = searchResults[0].score < 0.1 ? "Exact match" : "Fuzzy match";
-      } else {
-        finalCategory = "REFRACTION";
-        finalSymptom = "Unclear Checkup";
-        aiReasoning = "Default routing";
-      }
+    // --- 3. ESI (Emergency Severity Index) Protocol Engine (NEW) ---
+    const esiResult = determineESILevel(textToAnalyze, patientHistory);
+
+    let riskFactorsDetected = []; // Initialize logic container
+
+    // --- 4. ML Risk Analysis ---
+    // We still run ML to detect hidden patterns the manual rules might miss
+    // e.g., "Mild pain" is ESI-3, but if ML sees "Glaucoma + Mild Pain" it might suggest higher risk.
+    const mlAnalysis = predictRiskProbability(patientHistory || {}, textToAnalyze);
+    let mlProbabilityScore = mlAnalysis.probability;
+
+    // --- 5. Final Synthesis: MAX(ESI, ML) ---
+    // Start with the ESI Rule result
+    let finalCategory = "OPD_GENERAL";
+    finalSymptom = esiResult.condition;
+    finalSeverity = "low"; // Mapping for old UI compatibility
+    let finalEsiLevel = esiResult.level;
+    aiReasoning = `ESI-${esiResult.level}: ${esiResult.condition}`;
+
+    // Map ESI specific categories if possible (simple heuristic)
+    if (esiResult.level === 1) {
+      finalCategory = "EMERGENCY";
+      finalSeverity = "high";
+    } else if (esiResult.level === 2) {
+      finalCategory = "OPHTHALMOLOGY"; // Generic Urgent
+      if (textToAnalyze.includes("flash") || textToAnalyze.includes("curtain")) finalCategory = "RETINA";
+      finalSeverity = "high";
+    } else if (esiResult.level === 4) {
+      finalCategory = "REFRACTION";
+      finalSeverity = "low";
     }
 
-    // Voice Stress Adjustment (REMOVED)
-    /*
-    if (painDetected && finalSeverity !== 'high') {
-      finalSeverity = 'medium';
-      aiReasoning += " + Voice Stress Detected";
+    // FAIL-SAFE: If ML detects HIGH RISK (80%+), but ESI rule missed it (e.g. ESI-3 or 4)
+    // Upgrade it to at least ESI-2.
+    if (mlAnalysis.isHighRisk && finalEsiLevel > 2) {
+      finalEsiLevel = 2; // Force partial upgrade
+      aiReasoning += " [UPGRADED by ML: Hidden Risk Pattern Detected]";
+      finalSeverity = "high";
+      finalCategory = "OPHTHALMOLOGY";
+
+      // Populate risk factors for UI
+      riskFactorsDetected.push(`ML High Risk: ${mlProbabilityScore}%`);
+      riskFactorsDetected.push(...mlAnalysis.features_used);
     }
-    */
 
-    // --- INTELLIGENT TRIAGE: Hybrid Fail-Safe Engine ---
-    let riskFactorsDetected = [];
-    let mlProbabilityScore = 0;
-
-    if (patientHistory) {
-      // 1. Rule-Based Analysis (The "Hard Floor")
-      let baseEsi = 4;
-      if (finalSeverity === 'medium') baseEsi = 3;
-      if (finalSeverity === 'high') baseEsi = 2;
-
-      const ruleAnalysis = calculateRiskScore(patientHistory, textToAnalyze);
-      const ruleAdjustment = adjustEsiLevel(baseEsi, ruleAnalysis);
-
-      // 2. ML Probabilistic Analysis (The "Sentinel")
-      const mlResult = predictRiskProbability(patientHistory, textToAnalyze);
-      mlProbabilityScore = mlResult.probability;
-
-      // 3. FAIL-SAFE LOGIC (Max of Rule vs ML)
-      const ruleSaysHighRisk = ruleAdjustment.isUpgraded;
-      const mlSaysHighRisk = mlResult.isHighRisk; // > 50%
-
-      const isHighRiskContext = ruleSaysHighRisk || mlSaysHighRisk;
-
-      if (isHighRiskContext) {
-        riskFactorsDetected = [...ruleAnalysis.factors]; // Keep rule explanations
-
-        // If ML caught it but Rules missed it, explain why
-        if (mlSaysHighRisk && !ruleSaysHighRisk) {
-          riskFactorsDetected.push(`ML Pattern Match (${mlProbabilityScore}%)`);
-          riskFactorsDetected.push(`Features: ${mlResult.features_used.join('+')}`);
-        }
-
-        // Force Upgrade
-        if (finalSeverity === 'low') finalSeverity = 'medium';
-        else if (finalSeverity === 'medium') finalSeverity = 'high';
-
-        aiReasoning += `\n🛡️ HYBRID TRIAGE: High Risk Detected.`;
-        if (ruleSaysHighRisk) aiReasoning += ` [Rule: ${ruleAdjustment.riskScore}]`;
-        if (mlSaysHighRisk) aiReasoning += ` [ML: ${mlProbabilityScore}%]`;
-      }
-    }
 
     // --- INNOVATION: Multi-Turn Ambiguity Detection ---
     let clarificationNeeded = false;
@@ -207,13 +180,17 @@ export async function POST(request) {
       raw_transcript: inputAudioText,
       category_prediction: {
         category: finalCategory,
-        confidence: finalConfidence,
+        confidence: 0.85, // Standardize confidence for now
         severity: finalSeverity,
-        reasoning: aiReasoning
+        reasoning: aiReasoning,
+        pain_detected: painDetected,
+        risk_factors: mlAnalysis.features_used, // Use full feature list
+        ml_score: mlProbabilityScore,
+        esi_level: finalEsiLevel,
+        esi_action: esiResult.action
       },
       audio_analysis: {
         stress_level: stressLevel,
-        pain_detected: painDetected,
         sentiment_score: sentimentScore
       },
       duration: 3.5,

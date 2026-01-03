@@ -40,8 +40,18 @@ export default function DigitalTicket({ tokenData }) {
 
             <div className="text-center border-b-2 border-dashed border-slate-200 pb-6 mb-6">
                 <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest">Aravind Eye Hospital</h2>
+
+                {/* ESI Stripe */}
+                <div className={`w-full h-1 mt-2 mb-1 rounded-full ${tokenData.category === 'EMERGENCY' ? 'bg-red-500' :
+                        tokenData.category === 'OPHTHALMOLOGY' ? 'bg-orange-500' :
+                            'bg-green-500'
+                    }`}></div>
+
                 <h1 className="text-3xl font-black text-slate-800 mt-2">TOKEN</h1>
-                <div className="text-5xl font-black text-sky-600 my-4 tracking-tighter">
+                <div className={`text-5xl font-black my-4 tracking-tighter ${tokenData.category === 'EMERGENCY' ? 'text-red-600' :
+                        tokenData.category === 'OPHTHALMOLOGY' ? 'text-orange-600' :
+                            'text-emerald-600'
+                    }`}>
                     {tokenData.tokenId}
                 </div>
                 <div className="inline-block bg-slate-100 text-slate-600 px-3 py-1 rounded text-xs font-bold uppercase">
