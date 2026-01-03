@@ -11,17 +11,14 @@ export default function PatientPortal() {
 
     // Station Display Names & Rooms
     const STATION_INFO = {
-        'registration': { name: 'Registration Desk', room: 'Lobby', icon: '📋' },
         'vision_test': { name: 'Vision Testing', room: 'Room 104', icon: '👁️' },
         'refraction': { name: 'Refraction (Glasses)', room: 'Room 105', icon: '👓' },
         'dilation': { name: 'Dilation Waiting', room: 'Dilation Area', icon: '💧' },
         'fundus_photo': { name: 'Fundus Imaging', room: 'Room 108', icon: '📸' },
         'investigation': { name: 'Lab Investigation', room: 'Lab 1', icon: '🔬' },
-        'iop_check': { name: 'IOP / Glaucoma', room: 'Room 106', icon: '💨' },
         'doctor_consult': { name: 'Doctor Consultation', room: 'Room 201', icon: '👨‍⚕️' },
         'pharmacy': { name: 'Pharmacy', room: 'Ground Floor', icon: '💊' },
-        'trauma_center': { name: 'Trauma Center', room: 'Red Zone', icon: '🚨' },
-        'discharge': { name: 'Discharge', room: 'Exit', icon: '👋' }
+        'trauma_center': { name: 'Trauma Center', room: 'Red Zone', icon: '🚨' }
     };
 
     useEffect(() => {

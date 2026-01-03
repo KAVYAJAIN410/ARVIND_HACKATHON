@@ -4,62 +4,52 @@
  */
 
 export const STATIONS = {
-    REGISTRATION: 'registration',
+    // REGISTRATION Removed
     VISION: 'vision_test',
-    REFRACTION: 'refraction', // New
-    DILATION: 'dilation',     // New
-    FUNDUS: 'fundus_photo',   // New
-    INVESTIGATION: 'investigation', // New
-    IOP: 'iop_check',
+    REFRACTION: 'refraction',
+    DILATION: 'dilation',
+    FUNDUS: 'fundus_photo',
+    INVESTIGATION: 'investigation',
+    // IOP Removed
     DOCTOR: 'doctor_consult',
-    EMERGENCY: 'trauma_center', // Renamed from emergency_room
-    PHARMACY: 'pharmacy',
-    DISCHARGE: 'discharge'
+    EMERGENCY: 'trauma_center',
+    PHARMACY: 'pharmacy'
+    // DISCHARGE Removed
 };
 
 export const PATHWAYS = {
-    // 🔴 ESI-1: Immediate Life/Vision Threat
-    // Skip everything -> Direct to Emergency
+    // 🔴 ESI-1
     1: [
-        STATIONS.EMERGENCY,
-        STATIONS.DISCHARGE
+        STATIONS.EMERGENCY
     ],
 
-    // 🟠 ESI-2: Urgent (e.g., Sudden Pain/Loss)
-    // Vision -> Doctor (Fast Track) -> Investigation (if needed)
+    // 🟠 ESI-2
     2: [
         STATIONS.VISION,
         STATIONS.DOCTOR,
         STATIONS.INVESTIGATION,
-        STATIONS.PHARMACY,
-        STATIONS.DISCHARGE
+        STATIONS.PHARMACY
     ],
 
-    // 🟡 ESI-3: Standard Care (Full Workup)
-    // Vision -> Refraction -> Dilation -> Doctor
+    // 🟡 ESI-3
     3: [
         STATIONS.VISION,
         STATIONS.REFRACTION,
-        STATIONS.IOP,
         STATIONS.DILATION,
         STATIONS.DOCTOR,
-        STATIONS.PHARMACY,
-        STATIONS.DISCHARGE
+        STATIONS.PHARMACY
     ],
 
-    // 🟢 ESI-4: Refraction / Simple
-    // Vision -> Refraction -> Pharmacy (Optom driven)
+    // 🟢 ESI-4
     4: [
         STATIONS.VISION,
         STATIONS.REFRACTION,
-        STATIONS.PHARMACY,
-        STATIONS.DISCHARGE
+        STATIONS.PHARMACY
     ],
 
-    // 🔵 ESI-5: Admin / Pharmacy Only
+    // 🔵 ESI-5
     5: [
-        STATIONS.PHARMACY,
-        STATIONS.DISCHARGE
+        STATIONS.PHARMACY
     ]
 };
 
@@ -69,7 +59,7 @@ export const COMPLAINT_PATHWAYS = {
     'REDNESS': [
         STATIONS.VISION,
         STATIONS.DOCTOR,
-        STATIONS.PHARMACY // Added
+        STATIONS.PHARMACY
     ],
     // 2. Blurred Vision (Simple)
     'BLURRED_VISION': [
@@ -104,7 +94,7 @@ export const COMPLAINT_PATHWAYS = {
     'ROUTINE': [
         STATIONS.VISION,
         STATIONS.REFRACTION,
-        STATIONS.FUNDUS, // Added
+        STATIONS.FUNDUS,
         STATIONS.DOCTOR,
         STATIONS.PHARMACY
     ]

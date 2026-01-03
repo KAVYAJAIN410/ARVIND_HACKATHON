@@ -1,5 +1,5 @@
 import { db } from './db';
-import { PATHWAYS, STATIONS } from './pathways';
+import { PATHWAYS, STATIONS, getPathwayForESI } from './pathways';
 
 /**
  * Queue Priority Engine
@@ -17,14 +17,8 @@ const ESI_WEIGHTS = {
 
 const AGING_FACTOR = 2; // +2 points per minute of waiting
 
-// Helper function to determine pathway based on ESI and Category
-// Placeholder implementation, assuming category might override or refine ESI-based pathways
-const getPathwayForESI = (esiLevel, category) => {
-    // For now, just use ESI level as before.
-    // Future: Add logic here to use 'category' to select a specific pathway
-    // e.g., if category is 'pediatric', use PATHWAYS.PEDIATRIC[esiLevel]
-    return PATHWAYS[esiLevel] || PATHWAYS[3];
-};
+// Helper now imported from pathways.js
+// const getPathwayForESI ... removed
 
 export const QueueSystem = {
     /**
@@ -96,7 +90,8 @@ export const QueueSystem = {
         }
 
         // Refresh pathway from source of truth to handle HMR/Code updates
-        const freshPathway = PATHWAYS[visit.esiLevel || 3] || PATHWAYS[3];
+        // CRITICAL FIX: Use Category to prevent reverting to default ESI pathway
+        const freshPathway = getPathwayForESI(visit.esiLevel || 3, visit.category);
         visit.pathway = freshPathway;
 
         console.log(`[QueueSystem] Current Station: ${visit.currentStation}`);

@@ -10,13 +10,11 @@ export default function StationDisplay() {
     const [loading, setLoading] = useState(true);
 
     const STATIONS_READABLE = {
-        registration: "Registration Desk",
         vision_test: "Vision Testing (Room 1)",
         refraction: "Refraction (Room 105)",
         dilation: "Dilation Area",
         fundus_photo: "Fundus Imaging (Room 108)",
         investigation: "Lab Investigation",
-        iop_check: "IOP / Glaucoma Check",
         doctor_consult: "Doctor Consultation",
         trauma_center: "TRAUMA CENTER (Red Zone)",
         pharmacy: "Pharmacy"

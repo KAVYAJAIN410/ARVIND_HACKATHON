@@ -7,6 +7,7 @@ import { predictWaitTime, getProcessInsights } from '../../lib/aiModel';
 
 import { analyzeMedicalContext } from '../../lib/genAiTriage';
 import { loadModel, classifySemantic } from '../../lib/edgeAi';
+import { getPathwayForESI } from '../../lib/pathways'; // Client-safe import
 
 import DigitalTicket from '../../components/DigitalTicket';
 
@@ -107,12 +108,18 @@ export default function ComplaintMappingPage() {
     if (mappedComplaint) {
       // Innovation: Digital Token Generation
       // Instead of just routing, we show the ticket first.
+      const selectedEsi = mappedComplaint.esiLevel || 3;
+      const selectedCategory = mappedComplaint.category;
+
+      const journey = getPathwayForESI(selectedEsi, selectedCategory);
+
       const newToken = {
         tokenId: `AEH-${Math.floor(Math.random() * 900) + 100}`,
         category: mappedComplaint.category,
         waitTime: mappedComplaint.waitTime,
         timestamp: new Date().toISOString(),
-        counter: Math.floor(Math.random() * 5) + 1
+        counter: Math.floor(Math.random() * 5) + 1,
+        pathway: journey // Passed to Ticket
       };
       setTicketData(newToken);
       setShowTicket(true);
