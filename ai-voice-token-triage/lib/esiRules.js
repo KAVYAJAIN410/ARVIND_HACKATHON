@@ -18,18 +18,18 @@ export function determineESILevel(text, patientHistory = {}) {
 
     // 1. Chemical / Physical Injury
     if (has(['chemical', 'acid', 'alkali', 'battery', 'lime', 'powder', 'splash']))
-        return createResult(1, "Chemical Injury", "Use Safety Shower / Irrigate Immediately");
+        return createResult(1, "EMERGENCY", "Use Safety Shower / Irrigate Immediately");
 
     if (has(['penetrating', 'cut', 'knife', 'sharp', 'stick', 'stab', 'open globe', 'bleeding', 'blood']))
-        return createResult(1, "Penetrating/Trauma Injury", "Immediate Surgical Consult");
+        return createResult(1, "EMERGENCY", "Immediate Surgical Consult");
 
     // 2. Sudden Vision Loss (NPL)
     if (has(['sudden', 'blackout', 'darkness', 'cannot see', 'blind']) && has(['now', 'hour', 'minute', 'today']))
-        return createResult(1, "Sudden Vision Loss", "Immediate Retina/Neuro Check");
+        return createResult(1, "EMERGENCY", "Immediate Retina/Neuro Check");
 
     // 3. Acute Glaucoma (Pain + Nausea)
     if (has(['pain', 'severe']) && has(['vomit', 'nausea', 'headache']))
-        return createResult(1, "Suspected Acute Glaucoma", "Check IOP Immediately");
+        return createResult(1, "EMERGENCY", "Check IOP Immediately");
 
 
     // --- 🟠 ESI-2: URGENT (High Risk of Damage) ---
